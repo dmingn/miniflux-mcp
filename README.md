@@ -53,7 +53,9 @@ The server fails fast if either variable is missing or authentication fails at s
 - `status`: `unread`
 - `limit`: `20`
 
-List results include `content_preview` (HTML stripped, first 100 characters) instead of full `content`, and omit the nested `feed` object (`feed_id` is enough; use `get_feed` when needed). Use `get_entry` for the full body (including nested `feed`).
+Collection tools wrap arrays in an object so `structuredContent` is always a JSON object: `list_categories` → `{ "categories": [...] }`, `list_feeds` → `{ "feeds": [...] }`, `get_entries` → `{ "total", "entries" }`.
+
+`get_entries` results include `content_preview` (HTML stripped, first 100 characters) instead of full `content`, and omit the nested `feed` object (`feed_id` is enough; use `get_feed` when needed). Use `get_entry` for the full body (including nested `feed`).
 
 ## Scope
 

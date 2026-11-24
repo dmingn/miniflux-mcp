@@ -100,7 +100,7 @@ func (h *handlers) listCategories(ctx context.Context, _ *mcp.CallToolRequest, _
 	if err != nil {
 		return nil, nil, err
 	}
-	return nil, categories, nil
+	return nil, categoryListResponse{Categories: categories}, nil
 }
 
 func (h *handlers) listFeeds(ctx context.Context, _ *mcp.CallToolRequest, input listFeedsInput) (*mcp.CallToolResult, any, error) {
@@ -112,14 +112,14 @@ func (h *handlers) listFeeds(ctx context.Context, _ *mcp.CallToolRequest, input 
 		if err != nil {
 			return nil, nil, err
 		}
-		return nil, feeds, nil
+		return nil, feedListResponse{Feeds: feeds}, nil
 	}
 
 	feeds, err := h.client.FeedsContext(ctx)
 	if err != nil {
 		return nil, nil, err
 	}
-	return nil, feeds, nil
+	return nil, feedListResponse{Feeds: feeds}, nil
 }
 
 func (h *handlers) getFeed(ctx context.Context, _ *mcp.CallToolRequest, input getFeedInput) (*mcp.CallToolResult, any, error) {
@@ -212,6 +212,14 @@ func (h *handlers) getCounters(ctx context.Context, _ *mcp.CallToolRequest, _ st
 		return nil, nil, err
 	}
 	return nil, counters, nil
+}
+
+type categoryListResponse struct {
+	Categories miniflux.Categories `json:"categories"`
+}
+
+type feedListResponse struct {
+	Feeds miniflux.Feeds `json:"feeds"`
 }
 
 type entryListResponse struct {
